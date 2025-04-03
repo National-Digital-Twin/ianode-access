@@ -1,0 +1,2365 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": " IANode ACCESS",
+    "version": "1.0.0",
+    "description": "Integration Architecture Node ACCESS API",
+    "contact": {
+      "name": "IANode",
+      "url": "https://ndtp.co.uk/",
+      "email": "NDTP@businessandtrade.gov.uk"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8091"
+    }
+  ],
+  "paths": {
+    "/attributes": {
+      "get": {
+        "summary": "Get all attributes",
+        "tags": ["Attributes"],
+        "description": "Returns all attributes",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved array of attributes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Attributes"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Attributes not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AttributesNotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/attributes/{_id}": {
+      "get": {
+        "summary": "Get specific attribute by ID",
+        "tags": ["Attributes"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "_id",
+            "description": "unique identifier for attribute"
+          }
+        ],
+        "description": "Get specific attribute by ID",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved attribute",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Attributes"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Attribute not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AttributesNotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/countries": {
+      "get": {
+        "summary": "Get a list of all available countries",
+        "tags": ["Countries"],
+        "description": "Returns all countries",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "An array of countries",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Countries"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/groups": {
+      "get": {
+        "summary": "Get all groups",
+        "tags": ["Groups"],
+        "description": "Returns all groups",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved array of groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Group"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Groups not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupsNotFound"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new group",
+        "tags": ["Groups"],
+        "description": "Creates a new group",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateGroup"
+              }
+            }
+          }
+        },
+        "produces": ["application/json"],
+        "responses": {
+          "201": {
+            "description": "Created group ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateGroupSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request / Fields missing",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupBadRequest"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Group already exists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupAlreadyExists"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/groups/{group_id}": {
+      "get": {
+        "summary": "Get specific group by group_id",
+        "tags": ["Groups"],
+        "description": "Get specific group by its ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "group_id",
+            "description": "unique identifier for groups"
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved group",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Group"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "users": {
+                          "type": "array",
+                          "example": [
+                            {
+                              "_id": "6540c6f026bc7a0bd665849f",
+                              "id": "6540c6f026bc7a0bd665849f",
+                              "name": "Example Name",
+                              "active": true
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Group not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupsNotFound"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete specific group by group_id",
+        "tags": ["Groups"],
+        "description": "Delete group from access - soft delete which removes the group from use by updating it to be inactive",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "group_id",
+            "description": "unique identifier for groups"
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Successfully soft deleted group",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteGroupSuccess"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Group not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupsNotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/hierarchies": {
+      "get": {
+        "summary": "Get all hierarchies",
+        "tags": ["Hierarchies"],
+        "description": "Returns all hierarchies",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved all hierarchies",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Hierarchy"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Hierarchies not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HierarchyNotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/hierarchies/{hierarchyId}": {
+      "get": {
+        "summary": "Get hierarchy with id :hierarchyId",
+        "tags": ["Hierarchies"],
+        "description": "Returns hierarchy with specified ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "hierarchyId",
+            "description": "Identifier of requested hierarchy"
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved hierarchy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Hierarchy"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Hierarchy not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HierarchyNotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/scim/v2/IsEnabled": {
+      "get": {
+        "summary": "Get SCIM enabled status",
+        "tags": ["SCIM"],
+        "description": "Get if SCIM is configured for the back end - i.e. an external IdP is being used to managed users",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "SCIM enabled status returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "isEnabled": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "Get all users",
+        "tags": ["Users"],
+        "description": "Returns all users",
+        "produces": [
+          {
+            "application/json": null
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Operation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInvalid"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "summary": "Get user by ID",
+        "tags": ["Users"],
+        "description": "Returns user based on specified ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id"
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Operation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInvalid"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update an existing user",
+        "tags": ["Users"],
+        "description": "Updates an existing user",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserInput"
+              }
+            }
+          }
+        },
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Successfully updated an existing user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateUserSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed to update user - invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInvalidRequest"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Operation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInvalid"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete existing user",
+        "tags": ["Users"],
+        "description": "Deletes an existing user by specified ID (if SCIM is enabled, delete is a soft delete)",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id"
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Successfully deleted existing user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteUserSuccess"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "User delete failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInvalid"
+                },
+                "example": {
+                  "code": 422,
+                  "message": "User delete failed"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/hierarchies/lookup/{name}": {
+      "get": {
+        "summary": "Look up hierarchy by name",
+        "tags": ["Hierarchies"],
+        "description": "Looks up hierarchy by name, using the data_attribute_name or user_attribute_name property of the hierarchy attribute",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "name",
+            "description": "Name of the the hierarchy to be looked up"
+          },
+          {
+            "in": "query",
+            "name": "isUserAttribute",
+            "schema": {
+              "type": "boolean",
+              "required": false,
+              "default": false,
+              "description": "isUserAttribute being set to true tells ACCESS to look up the hierarchy using the user_attribute_name property rather than data_attribute_name"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Successfully looked up hierarchy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Hierarchy"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Hierarchy not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HierarchyNotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/scim/v2/Users": {
+      "get": {
+        "summary": "Get all SCIM users",
+        "tags": ["SCIM"],
+        "description": "Returns all SCIM users",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved array of SCIM users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SCIMUsersListResponse"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "SCIM is not enabled, method not allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SCIMNotEnabled"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Operation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SCIMInvalid"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new SCIM user",
+        "tags": ["SCIM"],
+        "description": "Create a new SCIM user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSCIMUser"
+              }
+            }
+          }
+        },
+        "produces": ["application/json"],
+        "responses": {
+          "201": {
+            "description": "Successfully created SCIM user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StoredSCIMUser"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "SCIM is not enabled, method not allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SCIMNotEnabled"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "User already exists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SCIMUserExists"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "User object invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SCIMInvalid"
+                },
+                "example": {
+                  "code": 422,
+                  "message": "User object invalid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/scim/v2/Users/{userId}": {
+      "get": {
+        "summary": "Get specific SCIM user by UUID",
+        "tags": ["SCIM"],
+        "description": "Returns specific SCIM user based on specified UUID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "description": "user id to retrieve attributes for"
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved SCIM user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StoredSCIMUser"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SCIMUserNotFound"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "SCIM is not enabled, method not allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SCIMNotEnabled"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Operation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SCIMInvalid"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete an existing SCIM user",
+        "tags": ["SCIM"],
+        "description": "Deletes an existing SCIM user based on specified user ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "description": "user identifier for user to be deleted"
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Successfully deleted existing SCIM user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteSCIMUserSuccess"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "SCIM is not enabled, method not allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SCIMNotEnabled"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "User deactivation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SCIMInvalid"
+                },
+                "example": {
+                  "code": 422,
+                  "message": "User deactivation failed"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Patch an existing SCIM user",
+        "tags": ["SCIM"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "description": "user identifier for user to be patched"
+          }
+        ],
+        "requestBody": {
+          "description": "Changes to user",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Operations": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "op": {
+                          "type": "string",
+                          "example": "replace"
+                        },
+                        "value": {
+                          "type": "boolean",
+                          "example": true
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Patch an existing SCIM user",
+        "produces": ["application/json"],
+        "responses": {
+          "501": {
+            "description": "Operation in patch not supported",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SCIMUnableToPatch"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Patch an existing SCIM user via PUT",
+        "tags": ["SCIM"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "description": "user identifier for user to be patched"
+          }
+        ],
+        "requestBody": {
+          "description": "Changes to user",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Operations": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "op": {
+                          "type": "string",
+                          "example": "replace"
+                        },
+                        "value": {
+                          "type": "boolean",
+                          "example": true
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Patch an existing SCIM user",
+        "produces": ["application/json"],
+        "responses": {
+          "501": {
+            "description": "Operation in patch not supported",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SCIMUnableToPatch"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/scim/v2/ServiceProviderConfig": {
+      "get": {
+        "summary": "Get service provider configuration",
+        "tags": ["SCIM"],
+        "description": "Returns service provider configuration",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Returned service provider configuration",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceProviderConfig"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/scim/v2/ResourceTypes": {
+      "get": {
+        "summary": "Get resource types",
+        "tags": ["SCIM"],
+        "description": "Returns resource types",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Returned resource types",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceTypes"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/scim/v2/ResourceTypes/{name}": {
+      "get": {
+        "summary": "Get resource type by name",
+        "tags": ["SCIM"],
+        "description": "Returns resource type based on specified name",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "name",
+            "description": "name of the resource type to be looked up"
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Returned resource type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceType"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/scim/v2/Schemas": {
+      "get": {
+        "summary": "Get all schemas",
+        "tags": ["SCIM"],
+        "description": "Return all schemas",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Returned all schemas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Schemas"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/scim/v2/Schemas/{id}": {
+      "get": {
+        "summary": "Get schema",
+        "tags": ["SCIM"],
+        "description": "Returns schema by specified ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of the schema to be looked up"
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Returned schema by ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Schema"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/lookup/{email}": {
+      "get": {
+        "summary": "Get user attributes by email",
+        "deprecated": true,
+        "tags": ["Users"],
+        "description": "Returns user attributes based on specified email address",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "email"
+          }
+        ],
+        "producers": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "6564acddf66ddafd4a2fd645"
+                    },
+                    "attributes": {
+                      "$ref": "#/components/schemas/AttributesToStrings"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Operation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInvalid"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/retrieve/{sub}": {
+      "get": {
+        "summary": "Get user attributes by subject of token",
+        "tags": ["Users"],
+        "description": "Returns user attributes based on specified IdP identifier",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "sub"
+          }
+        ],
+        "producers": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "6564acddf66ddafd4a2fd645"
+                    },
+                    "attributes": {
+                      "$ref": "#/components/schemas/AttributesToStrings"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Operation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInvalid"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/whoami": {
+      "get": {
+        "summary": "Gets who user is, will create if no user exists",
+        "tags": ["UserInfo"],
+        "description": "Returns details for the user querying",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Successfully returned full user details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Operation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInvalid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user-info/self": {
+      "get": {
+        "summary": "Get user details",
+        "tags": ["UserInfo"],
+        "description": "Returns details for the user querying",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Successfully returned full user details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotFound"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Operation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInvalid"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Attributes": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "653f71ef35fe27f9f7ff1627"
+          },
+          "user_attribute_name": {
+            "type": "string",
+            "example": "personnel_type"
+          },
+          "data_attribute_name": {
+            "type": "string",
+            "example": "personnel_type"
+          },
+          "value": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "enum"
+              },
+              "values": {
+                "type": "array",
+                "example": ["GOV", "NON-GOV"]
+              }
+            }
+          },
+          "ihm": {
+            "type": "boolean",
+            "example": false
+          },
+          "readonly": {
+            "type": "boolean",
+            "example": false
+          }
+        }
+      },
+      "AttributesToStrings": {
+        "type": "array",
+        "example": [
+          "permitted_nationalities='GBR'",
+          "classification='OS'",
+          "permitted_organisations='Org1'",
+          "urn:ndtp:groups:G1:and",
+          "urn:ndtp:groups:G2:and",
+          "urn:ndtp:groups:G3:or",
+          "urn:ndtp:groups:G4:or"
+        ]
+      },
+      "AttributesNotFound": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "number",
+            "example": 404
+          },
+          "message": {
+            "type": "string",
+            "example": "Attribute(s) not found"
+          }
+        }
+      },
+      "Hierarchy": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "example": "64d25a470a97a540165757da"
+          },
+          "name": {
+            "type": "string",
+            "example": "classification"
+          },
+          "tiers": {
+            "type": "array",
+            "example": ["O", "OS", "S", "TS"]
+          },
+          "readonly": {
+            "type": "boolean"
+          }
+        }
+      },
+      "HierarchyNotFound": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "number",
+            "example": 404
+          },
+          "message": {
+            "type": "string",
+            "example": "hierarchy not found"
+          }
+        }
+      },
+      "Group": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "6540c84426bc7a0bd66584aa"
+          },
+          "group_id": {
+            "type": "string",
+            "example": "urn:ndtp:groups:example"
+          },
+          "label": {
+            "type": "string",
+            "example": "Example group name"
+          },
+          "description": {
+            "type": "string",
+            "example": "A group defined as an example"
+          },
+          "active": {
+            "type": "boolean",
+            "default": false
+          },
+          "userCount": {
+            "type": "number",
+            "required": false,
+            "example": 1
+          }
+        }
+      },
+      "CreateGroup": {
+        "type": "object",
+        "required": ["label", "description", "active"],
+        "properties": {
+          "label": {
+            "type": "string",
+            "example": "example"
+          },
+          "description": {
+            "type": "string",
+            "example": "A group defined as an example"
+          },
+          "active": {
+            "type": "boolean",
+            "example": false
+          }
+        }
+      },
+      "CreateGroupSuccess": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "created": {
+                "type": "boolean",
+                "example": true
+              },
+              "uuid": {
+                "type": "string",
+                "example": "urn:ndtp:groups:example"
+              }
+            }
+          }
+        }
+      },
+      "DeleteGroupSuccess": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "deleted": {
+                "type": "boolean",
+                "example": true
+              }
+            }
+          }
+        }
+      },
+      "GroupBadRequest": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "number",
+            "example": 400
+          },
+          "message": {
+            "type": "string",
+            "example": "Invalid request / Fields missing"
+          }
+        }
+      },
+      "GroupsNotFound": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "number",
+            "example": 404
+          },
+          "message": {
+            "type": "string",
+            "example": "Group(s) not found"
+          }
+        }
+      },
+      "GroupAlreadyExists": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "number",
+            "example": 409
+          },
+          "message": {
+            "type": "string",
+            "example": "Group already exists"
+          }
+        }
+      },
+      "BaseHierarchyModel": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "example": "31127653-a234-48bc-b940-34c866bfe837"
+          },
+          "tiers": {
+            "type": "array",
+            "example": ["O", "S", "TS"]
+          }
+        }
+      },
+      "Hierarchies": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseHierarchyModel"
+          },
+          {
+            "type": "object",
+            "required": ["uuid", "tiers"]
+          }
+        ]
+      },
+      "HierarchiesResponseArray": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Hierarchies"
+        }
+      },
+      "HierarchiesResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseHierarchyModel"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "CreateHierarchiesInput": {
+        "type": "object",
+        "required": ["name", "tiers"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "testClearance"
+          },
+          "tiers": {
+            "type": "array",
+            "example": ["O", "S", "TS"]
+          }
+        }
+      },
+      "HierarchyError": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "number"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "HierarchySuccess": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "created": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      },
+      "HierarchyUpdateSuccess": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "updated": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      },
+      "HierarchyDeleteSuccess": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "deleted": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      },
+      "User": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SCIMUser"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "description": "Identifier for the user in IANode ACCESS",
+                "type": "string",
+                "example": "507f1f77bcf86cd799439011"
+              },
+              "externalId": {
+                "description": "Auth identifier for the user in IANode ACCESS",
+                "type": "string",
+                "example": "31127653-a234-48bc-b940-34c866bfe837"
+              },
+              "name": {
+                "type": "string",
+                "example": "User"
+              },
+              "userName": {
+                "type": "string",
+                "example": "User"
+              },
+              "email": {
+                "type": "string",
+                "example": "newuser@ndtp.co.uk"
+              },
+              "labels": {
+                "type": "array",
+                "example": [
+                  {
+                    "name": "nationality",
+                    "value": "GBR",
+                    "toString": "nationality=\"GBR\"",
+                    "toDataLabelString": "permitted_nationalities='GBR'",
+                    "_id": "6540c57326bc7a0bd6658494"
+                  },
+                  {
+                    "name": "clearance",
+                    "value": "S",
+                    "toString": "clearance=\"S\"",
+                    "toDataLabelString": "classification='S'",
+                    "_id": "6540c57326bc7a0bd6658495"
+                  },
+                  {
+                    "name": "personnel_type",
+                    "value": "GOV",
+                    "toString": "personnel_type=\"GOV\"",
+                    "toDataLabelString": null,
+                    "_id": "6540c57326bc7a0bd6658496"
+                  },
+                  {
+                    "name": "deployed_organisation",
+                    "value": "Org1",
+                    "toString": "deployed_organisation=\"Org1\"",
+                    "toDataLabelString": "permitted_organisations='Org1'",
+                    "_id": "6540c57326bc7a0bd6658497"
+                  }
+                ]
+              },
+              "active": {
+                "type": "boolean",
+                "example": false
+              },
+              "userGroups": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "example": [
+                  "urn:ndtp:groups:developers",
+                  "urn:ndtp:groups:group2"
+                ]
+              },
+              "schemas": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "example": ["urn:ietf:params:scim:schemas:core:2.0:User"]
+              }
+            }
+          }
+        ]
+      },
+      "CreateUserInput": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "User"
+          },
+          "email": {
+            "type": "string",
+            "example": "newuser@ndtp.co.uk"
+          },
+          "clearance": {
+            "type": "string",
+            "enum": ["O", "OS", "S", "TS"]
+          },
+          "deployed_organisation": {
+            "type": "string",
+            "example": "Organisation name"
+          },
+          "nationality": {
+            "type": "string",
+            "example": "GBR"
+          },
+          "personnel_type": {
+            "type": "string",
+            "enum": ["GOV", "NON-GOV"]
+          },
+          "active": {
+            "type": "boolean",
+            "example": false
+          },
+          "userGroups": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "urn:ndtp:groups:developers",
+              "urn:ndtp:groups:group2"
+            ]
+          }
+        }
+      },
+      "CreateUserSuccess": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "507f1f77bcf86cd799439011"
+          }
+        }
+      },
+      "UpdateUserSuccess": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "507f1f77bcf86cd799439011"
+          },
+          "updated": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "DeleteUserSuccess": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "UserInvalidRequest": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "number",
+            "example": 400
+          },
+          "message": {
+            "type": "string",
+            "example": "Invalid request"
+          }
+        }
+      },
+      "UserNotFound": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "number",
+            "example": 404
+          },
+          "message": {
+            "type": "string",
+            "example": "User not found"
+          }
+        }
+      },
+      "UnableToCreateUser": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "number",
+            "example": 405
+          },
+          "message": {
+            "type": "string",
+            "example": "When SCIM is enabled, users cannot be created through ACCESS"
+          }
+        }
+      },
+      "UserExists": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "number",
+            "example": 409
+          },
+          "message": {
+            "type": "string",
+            "example": "User already exists in IdP"
+          }
+        }
+      },
+      "UserInvalid": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "number",
+            "example": 422
+          },
+          "message": {
+            "type": "string",
+            "example": "Operation failed / User object invalid / Operator not supported"
+          }
+        }
+      },
+      "Countries": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "United Kingdom"
+            },
+            "alpha2": {
+              "type": "string",
+              "example": "GB"
+            },
+            "alpha3": {
+              "type": "string",
+              "example": "GBR"
+            }
+          }
+        }
+      },
+      "ServerError": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "number",
+            "example": 500
+          },
+          "message": {
+            "type": "string",
+            "example": "Server error"
+          }
+        }
+      },
+      "SCIMUser": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "required": true,
+            "example": "6540c57326bc7a0bd6658493"
+          },
+          "externalId": {
+            "description": "Identifier for the User from the IdP",
+            "type": "string",
+            "example": "31127653-a234-48bc-b940-34c866bfe837"
+          },
+          "userName": {
+            "type": "string",
+            "example": "User"
+          },
+          "schemas": {
+            "type": "array",
+            "example": ["urn:ietf:params:scim:schemas:core:2.0:User"]
+          },
+          "groups": {
+            "type": "array",
+            "example": [
+              "urn:ndtp:groups:developers",
+              "urn:ndtp:groups:group2"
+            ]
+          }
+        }
+      },
+      "StoredSCIMUser": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SCIMUser"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Access identifier for user",
+                "example": "64dd02xxxxxxxxxxxcecbe13c"
+              }
+            }
+          }
+        ]
+      },
+      "SCIMUsersListResponse": {
+        "type": "object",
+        "properties": {
+          "schemas": {
+            "type": "array",
+            "items": "string",
+            "example": ["urn:ietf:params:scim:schemas:core:2.0:User"]
+          },
+          "totalResults": {
+            "type": "number"
+          },
+          "startIndex": {
+            "type": "number"
+          },
+          "itemsPerPage": {
+            "type": "number"
+          },
+          "Resources": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StoredSCIMUser"
+            }
+          }
+        }
+      },
+      "CreateSCIMUser": {
+        "type": "object",
+        "required": ["externalId"],
+        "properties": {
+          "externalId": {
+            "type": "string",
+            "example": "31127653-a234-48bc-b940-34c866bfe837"
+          },
+          "userName": {
+            "type": "string",
+            "example": "User"
+          },
+          "emails": {
+            "type": "array",
+            "example": [
+              {
+                "value": "user@ndtp.co.uk"
+              }
+            ]
+          },
+          "schemas": {
+            "type": "array",
+            "example": ["urn:ietf:params:scim:schemas:core:2.0:User"]
+          },
+          "groups": {
+            "type": "array",
+            "example": [
+              "urn:ndtp:groups:developers",
+              "urn:ndtp:groups:group2"
+            ]
+          }
+        }
+      },
+      "DeleteSCIMUserSuccess": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "ok": {
+                "type": "boolean",
+                "example": true
+              }
+            }
+          }
+        }
+      },
+      "SCIMUserNotFound": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "number",
+            "example": 404
+          },
+          "message": {
+            "type": "string",
+            "example": "SCIM user not found"
+          }
+        }
+      },
+      "SCIMNotEnabled": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "number",
+            "example": 405
+          },
+          "message": {
+            "type": "string",
+            "example": "SCIM is not enabled on this server"
+          }
+        }
+      },
+      "SCIMUserExists": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "number",
+            "example": 409
+          },
+          "message": {
+            "type": "string",
+            "example": "SCIM user already exists"
+          }
+        }
+      },
+      "SCIMInvalid": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "number",
+            "example": 422
+          },
+          "message": {
+            "type": "string",
+            "example": "Operation failed / SCIM user object invalid / Operator not supported"
+          }
+        }
+      },
+      "SCIMUnableToPatch": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "number",
+            "example": 501
+          },
+          "message": {
+            "type": "string",
+            "example": "Operation in patch not supported, only user deactivation is supported from the SCIM Service provider"
+          }
+        }
+      },
+      "ResourceType": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "User"
+          },
+          "name": {
+            "type": "string",
+            "example": "User"
+          },
+          "endpoint": {
+            "type": "string",
+            "example": "/Users"
+          },
+          "schemas": {
+            "type": "array",
+            "example": ["urn:ietf:params:scim:schemas:core:2.0:User"]
+          },
+          "schema": {
+            "type": "string",
+            "example": "urn:ietf:params:scim:schemas:core:2.0:User"
+          },
+          "meta": {
+            "type": "object",
+            "properties": {
+              "location": {
+                "type": "string",
+                "example": "localhost:8091/scim/v2/ResourceTypes/User"
+              },
+              "resourceType": {
+                "type": "string",
+                "example": "ResourceType"
+              }
+            }
+          }
+        }
+      },
+      "ResourceTypes": {
+        "type": "object",
+        "properties": {
+          "totalResults": {
+            "type": "number",
+            "example": 1
+          },
+          "itemsPerPage": {
+            "type": "number",
+            "example": 10
+          },
+          "startIndex": {
+            "type": "number",
+            "example": 1
+          },
+          "schemas": {
+            "type": "array",
+            "example": ["urn:ietf:params:scim:api:messages:2.0:ListResponse"]
+          },
+          "Resources": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ResourceType"
+            }
+          }
+        }
+      },
+      "SchemaAttributeProperties": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "userName"
+          },
+          "type": {
+            "type": "string",
+            "example": "string"
+          },
+          "multiValued": {
+            "type": "boolean",
+            "example": false
+          },
+          "required": {
+            "type": "boolean",
+            "example": true
+          },
+          "caseExact": {
+            "type": "boolean",
+            "example": false
+          },
+          "mutability": {
+            "type": "string",
+            "example": "readWrite"
+          },
+          "returned": {
+            "type": "string",
+            "example": "default"
+          },
+          "uniqueness": {
+            "type": "string",
+            "example": "server"
+          },
+          "description": {
+            "type": "string",
+            "example": "Unique identifier for the User, typically used by the user to directly authenticate to the service provider. Each User MUST include a non-empty userName value. This identifier MUST be unique across the service provider's entire set of Users."
+          }
+        }
+      },
+      "SchemaAttributes": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SchemaAttributeProperties"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "subAttributes": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/SchemaAttributeProperties"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "Schema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "urn:ietf:params:scim:schemas:core:2.0:User"
+          },
+          "name": {
+            "type": "string",
+            "example": "User"
+          },
+          "schemas": {
+            "type": "string",
+            "example": ["urn:ietf:params:scim:schemas:core:2.0:User"]
+          },
+          "description": {
+            "type": "string",
+            "example": "User Schema"
+          },
+          "attributes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SchemaAttributes"
+            }
+          },
+          "meta": {
+            "type": "object",
+            "properties": {
+              "resourceType": {
+                "type": "string",
+                "example": "Schema"
+              },
+              "location": {
+                "type": "string",
+                "example": "localhost:8091/scim/v2/Schemas/urn:ietf:params:scim:schemas:core:2.0:User"
+              }
+            }
+          }
+        }
+      },
+      "Schemas": {
+        "type": "object",
+        "properties": {
+          "totalResults": {
+            "type": "number",
+            "example": 1
+          },
+          "itemsPerPage": {
+            "type": "number",
+            "example": 10
+          },
+          "startIndex": {
+            "type": "number",
+            "example": 1
+          },
+          "schemas": {
+            "type": "array",
+            "example": ["urn:ietf:params:scim:api:messages:2.0:ListResponse"]
+          },
+          "Resources": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Schema"
+            }
+          }
+        }
+      },
+      "ServiceProviderConfig": {
+        "type": "object",
+        "properties": {
+          "documentationUri": {
+            "type": "string",
+            "example": "/api-docs/swagger"
+          },
+          "patch": {
+            "type": "object",
+            "properties": {
+              "supported": {
+                "type": "boolean",
+                "example": false
+              }
+            }
+          },
+          "bulk": {
+            "type": "object",
+            "properties": {
+              "supported": {
+                "type": "boolean",
+                "example": false
+              },
+              "maxOperations": {
+                "type": "number",
+                "example": 1000
+              },
+              "maxPayloadSize": {
+                "type": "number",
+                "example": 1048576
+              }
+            }
+          },
+          "filter": {
+            "type": "object",
+            "properties": {
+              "supported": {
+                "type": "boolean",
+                "example": true
+              },
+              "maxResults": {
+                "type": "number",
+                "example": 200
+              }
+            }
+          },
+          "changePassword": {
+            "type": "object",
+            "properties": {
+              "supported": {
+                "type": "boolean",
+                "example": false
+              }
+            }
+          },
+          "sort": {
+            "type": "object",
+            "properties": {
+              "supported": {
+                "type": "boolean",
+                "example": false
+              }
+            }
+          },
+          "schemas": {
+            "type": "array",
+            "example": ["urn:ietf:params:scim:api:messages:2.0:ListResponse"]
+          },
+          "etag": {
+            "type": "object",
+            "properties": {
+              "supported": {
+                "type": "boolean",
+                "example": false
+              }
+            }
+          },
+          "authenticationSchemes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "HTTP Basic"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Authentication scheme using the HTTP Basic Standard"
+                },
+                "specUri": {
+                  "type": "string",
+                  "example": "http://www.rfc-editor.org/info/rfc2617"
+                },
+                "type": {
+                  "type": "string",
+                  "example": "httpbasic"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": []
+}

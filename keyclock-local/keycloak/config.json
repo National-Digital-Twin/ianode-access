@@ -1,0 +1,114 @@
+{
+  "realm": "ndtp-realm",
+  "enabled": true,
+  "verifyEmail": false,
+  "loginWithEmailAllowed": false,
+  "duplicateEmailsAllowed": true,
+  "accessTokenLifespan": 60,
+  "accessTokenLifespanForImplicitFlow": 900,
+  "ssoSessionIdleTimeout": 1800,
+  "ssoSessionMaxLifespan": 36000,
+  "offlineSessionIdleTimeout": 2592000,
+  "offlineSessionMaxLifespanEnabled": false,
+  "offlineSessionMaxLifespan": 5184000,
+  "accessCodeLifespan": 60,
+  "accessCodeLifespanUserAction": 300,
+  "accessCodeLifespanLogin": 1800,
+  "actionTokenGeneratedByAdminLifespan": 43200,
+  "actionTokenGeneratedByUserLifespan": 300,
+  "users": [
+    {
+      "username": "test+admin@ndtp.co.uk",
+      "firstName": "Test",
+      "lastName": "Admin",
+      "email": "test+admin@ndtp.co.uk",
+      "enabled": true,
+      "createdTimestamp" : 1670237815636,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "password"
+        }
+      ],
+      "realmRoles": ["ianode_admin"]
+    },
+    {
+      "username": "test+user@ndtp.co.uk",
+      "firstName": "Test",
+      "lastName": "User",
+      "email": "test+user@ndtp.co.uk",
+      "createdTimestamp" : 1670237815636,
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "password"
+        }
+      ],
+      "realmRoles": ["ianode_read"]
+    },
+    {
+      "username": "test+user+admin@ndtp.co.uk",
+      "firstName": "Test",
+      "lastName": "User Admin",
+      "email": "test+user+admin@ndtp.co.uk",
+      "enabled": true,
+      "createdTimestamp" : 1670237815636,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "password"
+        }
+      ],
+      "realmRoles": ["ianode_admin", "ianode_read"]
+    },
+    {
+      "username": "test@ndtp.co.uk",
+      "firstName": "Test",
+      "lastName": "U",
+      "email": "test@ndtp.co.uk",
+      "createdTimestamp" : 1670237815636,
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "password"
+        }
+      ]
+    }
+  ],
+  "clients": [
+    {
+      "clientId": "ndtp-access",
+      "name": "NDTP Access",
+      "description": "Clients to access NDTP applications",
+      "enabled": true,
+      "surrogateAuthRequired": false,
+      "clientAuthenticatorType": "client-secret",
+      "redirectUris": [ ],
+      "webOrigins": [ ],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": false,
+      "publicClient": true,
+      "frontchannelLogout": false,
+      "protocol": "openid-connect"
+    }
+  ],
+  "roles": {
+    "realm": [
+      {
+        "name": "ianode_admin",
+        "description": "IANode Administrator"
+      },
+      {
+        "name": "ianode_read",
+        "description": "IANode Read Access"
+      }
+    ]
+  }
+}
