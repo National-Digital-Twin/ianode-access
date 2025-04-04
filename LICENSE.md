@@ -6,7 +6,6 @@
 
 ## Copyright Notice  
 
-Copyright (c) 2024 Telicent Ltd.  
 © Crown Copyright 2025. This work has been developed by the National Digital Twin Programme and is legally attributed to the Department for Business and Trade (UK) as the governing entity. 
 
 This work is licensed under the Apache License, Version 2.0.  
