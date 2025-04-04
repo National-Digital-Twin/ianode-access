@@ -1,6 +1,6 @@
 {
   "name": "@National-Digital-Twin/ianode-access-api",
-  "version": "1.2.1",
+  "version": "0.90.0",
   "description": "Project to provide user attribute lookups",
   "main": "index.js",
   "scripts": {
