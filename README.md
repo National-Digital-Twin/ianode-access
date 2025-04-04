@@ -1,7 +1,6 @@
 # README
 
-**Repository:** `ianode-access`
-
+**Repository:** `ianode-access`   
 **Description:** `This repository provides an application that allows the testing and demonstration of Attribute Based Access Control (ABAC) capability with IA Node.`
 
 <!-- SPDX-License-Identifier: Apache-2.0 AND OGL-UK-3.0 -->
@@ -16,7 +15,7 @@ This repository contributes to the development of **secure, scalable, and intero
 
 This repository is one of several open-source components that underpin NDTP’s **Integration Architecture (IA)**—a framework designed to allow organisations to manage and exchange data securely while maintaining control over their own information. The IA is actively deployed and tested across multiple sectors, ensuring its adaptability and alignment with real-world needs.
 
-For a complete overview of the Integration Architecture (IA) project, please see the [Integration Architecture Documentation](https://github.com/National-Digital-Twin/integration-architecture-documentation)
+For a complete overview of the Integration Architecture (IA) project, please see the [Integration Architecture Documentation](https://github.com/National-Digital-Twin/integration-architecture-documentation).
 
 ## Prerequisites
 Before using this repository, ensure you have the following dependencies installed:
@@ -52,7 +51,7 @@ scripts/dev-docker-setup.sh
 This script initializes the components required for ACCESS.
 
 ## Features
-- **Core functionality**
+- **Key functionality**
   - Implements Attribute-Based Access Control (ABAC) to enforce data security at both the API and database levels. 
   - Enables granular access control by assigning security attributes to data and verifying user permissions against them. 
   - Provides an admin interface for managing user attributes, groups, and entitlements within IA Node.
