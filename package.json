@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/National-Digital-Twin/ianode-access#readme",
   "dependencies": {
-    "@babel/runtime": "^7.24.1",
+    "@babel/runtime": "^7.26.10",
     "axios": "^1.7.4",
     "cors": "^2.8.5",
     "elliptic": "6.6.1",
