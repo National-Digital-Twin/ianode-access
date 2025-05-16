@@ -4,31 +4,28 @@
 **Description:** `Lists maintainers responsible for reviewing issues, security, and documentation updates.`  
 <!-- SPDX-License-Identifier: OGL-UK-3.0 -->
 
----
+## Responsibilities of Maintainers
 
-## 🛠 Current Status: Under NDTP Oversight  
+Maintainers are responsible for:
 
-At present, **there is no actively assigned supplier maintaining this repository**. NDTP is currently in the process of engaging new suppliers through its procurement cycle.  
+- Reviewing and responding to **GitHub Issues**.
+- Assessing **documentation updates and corrections**.
+- Overseeing **code updates** developed by NDTP-approved suppliers.
+- Ensuring compliance with **NDTP’s licensing and security policies**.
 
-In the meantime:  
-- **Bug reports and documentation feedback** will still be reviewed by NDTP.  
-- **Security vulnerabilities** should be reported via the [responsible disclosure process](SECURITY.md).  
-- **For any queries, please contact:** **ndtp@businessandtrade.gov.uk**  
-
-Once a new supplier is engaged, this file will be updated with their details.  
+NDTP does not accept public code contributions, but we welcome **bug reports and documentation feedback**.
 
 ---
 
-## Last Active Maintainers  
+## Current Maintainers
 
-The following organisations were responsible for previous development efforts on this repository:  
+| Name        | Organisation | Role               | Contact               |
+|-------------|--------------|--------------------|-----------------------|
+| Josh Samuel | Viable Data  | Lead Maintainer    | ndtp@viabledata.co.uk |
+| Josh Samuel | Viable Data  | Security Contact   | ndtp@viabledata.co.uk |
+| Josh Samuel | Viable Data  | Documentation Lead | ndtp@viabledata.co.uk |
 
-| Name | Organisation | Role | Contact |
-|------|-------------|------|---------|
-| Martin Willits | Kainos | Lead Maintainer | ndtp@businessandtrade.gov.uk |
-| Joshua Hughes | Kainos | Documentation Lead | ndtp@businessandtrade.gov.uk |
-
-*For ongoing inquiries, please use the NDTP contact email above.*  
+For general issues, please **open a GitHub issue** rather than contacting maintainers directly.
 
 ---
 
