@@ -71,7 +71,7 @@ This script initializes the components required for ACCESS.
 ## Testing Guide
 
 ### Running Unit Tests
-Navigate to the root of the project and run `mvn test` to run the tests for the repository.
+Navigate to the root of the project and run `npm run test` to run the tests for the repository.
 
 ## API Documentation
 Documentation detailing the relevant configuration and endpoints is provided [here](docs/api.md).
