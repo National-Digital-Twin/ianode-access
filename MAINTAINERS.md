@@ -2,30 +2,34 @@
 
 **Repository:** `ianode-access`  
 **Description:** `Lists maintainers responsible for reviewing issues, security, and documentation updates.`  
-<!-- SPDX-License-Identifier: OGL-UK-3.0 -->
-
-## Responsibilities of Maintainers
-
-Maintainers are responsible for:
-
-- Reviewing and responding to **GitHub Issues**.
-- Assessing **documentation updates and corrections**.
-- Overseeing **code updates** developed by NDTP-approved suppliers.
-- Ensuring compliance with **NDTP’s licensing and security policies**.
-
-NDTP does not accept public code contributions, but we welcome **bug reports and documentation feedback**.
+**SPDX-License-Identifier**: OGL-UK-3.0
 
 ---
 
-## Current Maintainers
+## 🛠 Current Status: Under NDTP Oversight  
 
-| Name        | Organisation | Role               | Contact               |
-|-------------|--------------|--------------------|-----------------------|
-| Josh Samuel | Viable Data  | Lead Maintainer    | ndtp@viabledata.co.uk |
-| Josh Samuel | Viable Data  | Security Contact   | ndtp@viabledata.co.uk |
-| Josh Samuel | Viable Data  | Documentation Lead | ndtp@viabledata.co.uk |
+At present, **there is no actively assigned supplier maintaining this repository**. NDTP is currently in the process of engaging new suppliers through its procurement cycle.  
 
-For general issues, please **open a GitHub issue** rather than contacting maintainers directly.
+In the meantime:  
+- **Bug reports and documentation feedback** will still be reviewed by NDTP.  
+- **Security vulnerabilities** should be reported via the [responsible disclosure process](SECURITY.md).  
+- **For any queries, please contact:** **ospo@ndtp.co.uk**  
+
+Once a new supplier is engaged, this file will be updated with their details.  
+
+---
+
+## Last Active Maintainers  
+
+The following organisations were responsible for previous development efforts on this repository:  
+
+| Name | Organisation | Role | Contact |
+|------|-------------|------|---------|
+| Josh Samuel | Viable Data | Lead Maintainer | ospo@ndtp.co.uk |
+| Josh Samuel | Viable Data | Security Contact | ospo@ndtp.co.uk |
+| Josh Samuel | Viable Data | Documentation Lead | ospo@ndtp.co.uk |
+
+*For ongoing inquiries, please use the NDTP contact email above.*  
 
 ---
 
@@ -42,5 +46,7 @@ During these times, NDTP ensures:
 **Maintained by the National Digital Twin Programme (NDTP).**  
 
 © Crown Copyright 2025. This work has been developed by the National Digital Twin Programme and is legally attributed to the Department for Business and Trade (UK) as the governing entity.  
-Licensed under the Open Government Licence v3.0.  
+
+Licensed under the Open Government Licence v3.0.
+
 For full licensing terms, see [OGL_LICENSE.md](OGL_LICENSE.md).  
