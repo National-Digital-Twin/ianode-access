@@ -19,29 +19,72 @@
   #  Modifications made by the National Digital Twin Programme (NDTP)
   #  © Crown Copyright 2025. This work has been developed by the National Digital Twin Programme
   #  and is legally attributed to the Department for Business and Trade (UK) as the governing entity.
+#!/bin/bash
 
-aws --endpoint http://0.0.0.0:9229 cognito-idp admin-create-user --user-pool-id local_6GLuhxhD --username test+admin@ndtp.co.uk --cli-read-timeout 0 --message-action SUPPRESS --user-attributes Name=email,Value=test+admin@ndtp.co.uk 1> /dev/null
-aws --endpoint http://0.0.0.0:9229 cognito-idp admin-create-user --user-pool-id local_6GLuhxhD --username test+user@ndtp.co.uk --cli-read-timeout 0 --message-action SUPPRESS --user-attributes Name=email,Value=test+user@ndtp.co.uk 1> /dev/null
-aws --endpoint http://0.0.0.0:9229 cognito-idp admin-create-user --user-pool-id local_6GLuhxhD --username test+user+admin@ndtp.co.uk --cli-read-timeout 0 --message-action SUPPRESS --user-attributes Name=email,Value=test+user+admin@ndtp.co.uk 1> /dev/null
-aws --endpoint http://0.0.0.0:9229 cognito-idp admin-create-user --user-pool-id local_6GLuhxhD --username test@ndtp.co.uk --cli-read-timeout 0 --message-action SUPPRESS --user-attributes Name=email,Value=test@ndtp.co.uk 1> /dev/null
+# SPDX-License-Identifier: Apache-2.0
+# Dynamic Cognito setup script that works across different machines
+
+ENDPOINT="http://0.0.0.0:9229"
+
+echo " Setting up Cognito local..."
+echo " set COGNITO_ADMIN_PASSWORD before use!"
+PASSWORD=${COGNITO_ADMIN_PASSWORD:-admin} 
+
+
+# Create a new user pool
+echo "Creating user pool..."
+USER_POOL_RESPONSE=$(aws --endpoint $ENDPOINT cognito-idp create-user-pool --pool-name "NDTPPool" --cli-read-timeout 0)
+USER_POOL_ID=$(echo $USER_POOL_RESPONSE | grep -o '"Id": "[^"]*"' | sed 's/"Id": "//;s/"//')
+
+echo "Created user pool with ID: $USER_POOL_ID"
+
+# Create user pool client (app client)
+echo "Creating user pool client..."
+CLIENT_RESPONSE=$(aws --endpoint-url $ENDPOINT cognito-idp create-user-pool-client --user-pool-id $USER_POOL_ID --client-name "ianode-access-client" --explicit-auth-flows USER_PASSWORD_AUTH --cli-read-timeout 0)
+CLIENT_ID=$(echo $CLIENT_RESPONSE | grep -o '"ClientId": "[^"]*"' | sed 's/"ClientId": "//;s/"//')
+echo "Created user pool client with ID: $CLIENT_ID"
+
+# Create users
+echo "Creating users..."
+aws --endpoint $ENDPOINT cognito-idp admin-create-user --user-pool-id $USER_POOL_ID --username test+admin@ndtp.co.uk --cli-read-timeout 0 --message-action SUPPRESS --user-attributes Name=email,Value=test+admin@ndtp.co.uk 1> /dev/null
+aws --endpoint $ENDPOINT cognito-idp admin-create-user --user-pool-id $USER_POOL_ID --username test+user@ndtp.co.uk --cli-read-timeout 0 --message-action SUPPRESS --user-attributes Name=email,Value=test+user@ndtp.co.uk 1> /dev/null
+aws --endpoint $ENDPOINT cognito-idp admin-create-user --user-pool-id $USER_POOL_ID --username test+user+admin@ndtp.co.uk --cli-read-timeout 0 --message-action SUPPRESS --user-attributes Name=email,Value=test+user+admin@ndtp.co.uk 1> /dev/null
+aws --endpoint $ENDPOINT cognito-idp admin-create-user --user-pool-id $USER_POOL_ID --username test@ndtp.co.uk --cli-read-timeout 0 --message-action SUPPRESS --user-attributes Name=email,Value=test@ndtp.co.uk 1> /dev/null
 
 echo "4 users created"
 
-aws --endpoint http://0.0.0.0:9229 cognito-idp admin-set-user-password --user-pool-id local_6GLuhxhD --username test+admin@ndtp.co.uk --password password --permanent 1> /dev/null
-aws --endpoint http://0.0.0.0:9229 cognito-idp admin-set-user-password --user-pool-id local_6GLuhxhD --username test+user+admin@ndtp.co.uk --password password --permanent  1> /dev/null
-aws --endpoint http://0.0.0.0:9229 cognito-idp admin-set-user-password --user-pool-id local_6GLuhxhD --username test+user@ndtp.co.uk --password password --permanent 1> /dev/null
-aws --endpoint http://0.0.0.0:9229 cognito-idp admin-set-user-password --user-pool-id local_6GLuhxhD --username test@ndtp.co.uk --password password --permanent 1> /dev/null
+# Set passwords
+echo "Setting user passwords..."
+aws --endpoint $ENDPOINT cognito-idp admin-set-user-password --user-pool-id $USER_POOL_ID --username test+admin@ndtp.co.uk --password password --permanent 1> /dev/null
+aws --endpoint $ENDPOINT cognito-idp admin-set-user-password --user-pool-id $USER_POOL_ID --username test+user+admin@ndtp.co.uk --password password --permanent  1> /dev/null
+aws --endpoint $ENDPOINT cognito-idp admin-set-user-password --user-pool-id $USER_POOL_ID --username test+user@ndtp.co.uk --password password --permanent 1> /dev/null
+aws --endpoint $ENDPOINT cognito-idp admin-set-user-password --user-pool-id $USER_POOL_ID --username test@ndtp.co.uk --password password --permanent 1> /dev/null
 
-echo "all users passwords set to ... password"
+echo "All users passwords set to 'password'"
 
-aws --endpoint http://0.0.0.0:9229 cognito-idp create-group --user-pool-id local_6GLuhxhD  --group-name ianode_admin 1> /dev/null
-aws --endpoint http://0.0.0.0:9229 cognito-idp create-group --user-pool-id local_6GLuhxhD  --group-name ianode_read 1> /dev/null
+# Create groups
+echo "Creating groups..."
+aws --endpoint $ENDPOINT cognito-idp create-group --user-pool-id $USER_POOL_ID  --group-name ianode_admin 1> /dev/null
+aws --endpoint $ENDPOINT cognito-idp create-group --user-pool-id $USER_POOL_ID  --group-name ianode_read 1> /dev/null
 
 echo "IANode_admin and IANode_read groups created"
 
-aws --endpoint http://0.0.0.0:9229 cognito-idp admin-add-user-to-group --user-pool-id local_6GLuhxhD --username test+admin@ndtp.co.uk --group-name ianode_admin 1> /dev/null
-aws --endpoint http://0.0.0.0:9229 cognito-idp admin-add-user-to-group --user-pool-id local_6GLuhxhD --username test+user@ndtp.co.uk --group-name ianode_read 1> /dev/null
-aws --endpoint http://0.0.0.0:9229 cognito-idp admin-add-user-to-group --user-pool-id local_6GLuhxhD --username test+user+admin@ndtp.co.uk --group-name ianode_admin 1> /dev/null
-aws --endpoint http://0.0.0.0:9229 cognito-idp admin-add-user-to-group --user-pool-id local_6GLuhxhD --username test+user+admin@ndtp.co.uk --group-name ianode_read 1> /dev/null
+# Add users to groups
+echo "Adding users to groups..."
+aws --endpoint $ENDPOINT cognito-idp admin-add-user-to-group --user-pool-id $USER_POOL_ID --username test+admin@ndtp.co.uk --group-name ianode_admin 1> /dev/null
+aws --endpoint $ENDPOINT cognito-idp admin-add-user-to-group --user-pool-id $USER_POOL_ID --username test+user@ndtp.co.uk --group-name ianode_read 1> /dev/null
+aws --endpoint $ENDPOINT cognito-idp admin-add-user-to-group --user-pool-id $USER_POOL_ID --username test+user+admin@ndtp.co.uk --group-name ianode_admin 1> /dev/null
+aws --endpoint $ENDPOINT cognito-idp admin-add-user-to-group --user-pool-id $USER_POOL_ID --username test+user+admin@ndtp.co.uk --group-name ianode_read 1> /dev/null
 
-echo "Added users to groups when required"
+echo "Added users to groups"
+
+# Save the user pool ID and client ID for reference
+echo $USER_POOL_ID > .user_pool_id
+echo $CLIENT_ID > .client_id
+echo "✅ Setup complete!"
+echo "   User Pool ID: $USER_POOL_ID (saved to .user_pool_id)"
+echo "   Client ID: $CLIENT_ID (saved to .client_id)"
+echo ""
+echo "You can now authenticate using:"
+echo "aws --endpoint-url $ENDPOINT cognito-idp initiate-auth --client-id $CLIENT_ID --auth-flow USER_PASSWORD_AUTH --auth-parameters USERNAME=test+admin@ndtp.co.uk,PASSWORD=$PASSWORD"
+

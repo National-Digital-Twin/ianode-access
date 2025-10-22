@@ -34,6 +34,10 @@ Before using this repository, ensure you have the following dependencies install
   - Docker
   - Database: MongoDB
 
+## Info
+The detailed information below is retained for completeness; however, to quickly set up a local IANode deployment, please refer directly to the readme.md available at  [Integration Architecture Documentation](https://github.com/National-Digital-Twin/)
+
+ 
 ## Quick Start
 Follow these steps to get started quickly with this repository. For detailed installation, configuration, and deployment, refer to the relevant MD files.
 

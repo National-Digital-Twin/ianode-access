@@ -28,7 +28,7 @@ This sets the OPENID_PROVIDER_URL to "development". This setup has a user (test+
 If you want to pass your own token on API in this mode, you can do. Using the JWT_HEADER, put a token in and the API will accept it and use it without validation. This is useful when looking to test out authorization with the API.
 
 #### With Token Validate
-This mode allows a developer to spin up an IdP to validate tokens against. Within cognito-local, there is a readme on how to spin up a setup with 4 users and instructions on how to create tokens for each. These can then be passed using the JWT_HEADER; we have provided a token_env.sh script for convenience of running the API with the correct env variables.
+This mode allows a developer to spin up an IdP to validate tokens against. Within cognito-local, there is a readme on how to spin up a setup with 4 users and instructions on how to create tokens for each. These can then be passed using the JWT_HEADER; we have provided a cognito_env.sh script for convenience of running the API with the correct env variables.
 
 #### Start cognito-local
 Instructions for starting cognito-local can be found in the readme within the directory.
