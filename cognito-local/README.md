@@ -10,32 +10,41 @@ This is a local AWS Cognito emulator to be used in conjunction with
 
 - AWS CLI 
 
-## Create a User Pool 
+## Setup Instructions
 
-A user pool and client has been created: 
-UserPoolId: local_6GLuhxhD
-ClientId: 6967e8jkb0oqcm9brjkrbcrhj
-ClientName: access
+### First Time Setup (or after reset)
 
-## Using cognito 
+1. **Start the local Cognito instance:**
+   ```bash
+   docker compose up -d
+   ```
 
-You can reset the state of cognito by running the script "reset_cognito.sh" 
+2. **Run the dynamic setup script:**
+   ```bash
+   ./config_cognito.sh
+   ```
+   
+   This script will:
+   - Create a new user pool with a random ID (works on any machine)
+   - Create all required users and groups
+   - Save the user pool ID to `.user_pool_id` file
 
+### Reset Cognito (Clean State)
+
+To reset Cognito to a clean state:
+
+```bash
+sudo ./reset_cognito.sh
 ```
-sh reset_cognito.sh
+
+Then run the setup script again:
+
+```bash
+./config_cognito.sh
 ```
 
-Once this is clean you can start up the local cognito instance:
+### Legacy Script (Machine-Specific)
 
-```
-docker compose up
-```
-
-You can then configure users and groups in Cognito, by using the "config_cognito.sh"
-
-```
-sh config_cognito.sh
-```
 
 This will configure 4 users:
 

@@ -33,11 +33,12 @@ export KEYCLOAK_URL=http://localhost:9229
 function configureKeycloak() {
     echo "************************************"
     echo " Configure Keycloak realm"
+    echo " set KEYCLOAK_ADMIN_PASSWORD before use!"
     echo "************************************"
 
     # Set the needed parameter
     USER=admin
-    PASSWORD=admin
+    PASSWORD=${KEYCLOAK_ADMIN_PASSWORD:-admin} 
     GRANT_TYPE=password
     CLIENT_ID=admin-cli
     EXAMPLE_REALM=keycloak/config.json
