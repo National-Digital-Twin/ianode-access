@@ -55,12 +55,12 @@ echo "4 users created"
 
 # Set passwords
 echo "Setting user passwords..."
-aws --endpoint $ENDPOINT cognito-idp admin-set-user-password --user-pool-id $USER_POOL_ID --username test+admin@ndtp.co.uk --password password --permanent 1> /dev/null
-aws --endpoint $ENDPOINT cognito-idp admin-set-user-password --user-pool-id $USER_POOL_ID --username test+user+admin@ndtp.co.uk --password password --permanent  1> /dev/null
-aws --endpoint $ENDPOINT cognito-idp admin-set-user-password --user-pool-id $USER_POOL_ID --username test+user@ndtp.co.uk --password password --permanent 1> /dev/null
-aws --endpoint $ENDPOINT cognito-idp admin-set-user-password --user-pool-id $USER_POOL_ID --username test@ndtp.co.uk --password password --permanent 1> /dev/null
+aws --endpoint $ENDPOINT cognito-idp admin-set-user-password --user-pool-id $USER_POOL_ID --username test+admin@ndtp.co.uk --password $PASSWORD --permanent 1> /dev/null
+aws --endpoint $ENDPOINT cognito-idp admin-set-user-password --user-pool-id $USER_POOL_ID --username test+user+admin@ndtp.co.uk --password $PASSWORD --permanent  1> /dev/null
+aws --endpoint $ENDPOINT cognito-idp admin-set-user-password --user-pool-id $USER_POOL_ID --username test+user@ndtp.co.uk --password $PASSWORD --permanent 1> /dev/null
+aws --endpoint $ENDPOINT cognito-idp admin-set-user-password --user-pool-id $USER_POOL_ID --username test@ndtp.co.uk --password $PASSWORD --permanent 1> /dev/null
 
-echo "All users passwords set to 'password'"
+echo "All users passwords set to '$PASSWORD'"
 
 # Create groups
 echo "Creating groups..."
@@ -81,6 +81,11 @@ echo "Added users to groups"
 # Save the user pool ID and client ID for reference
 echo $USER_POOL_ID > .user_pool_id
 echo $CLIENT_ID > .client_id
+
+# Export for use in subsequent commands
+export USER_POOL_ID
+export CLIENT_ID
+
 echo "✅ Setup complete!"
 echo "   User Pool ID: $USER_POOL_ID (saved to .user_pool_id)"
 echo "   Client ID: $CLIENT_ID (saved to .client_id)"
