@@ -1,5 +1,5 @@
 {
-  "name": "@National-Digital-Twin/ianode-access-api",
+  "name": "@National-Node-Net/ianode-access-api",
   "version": "0.90.0",
   "description": "Project to provide user attribute lookups",
   "main": "index.js",
@@ -20,14 +20,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/National-Digital-Twin/ianode-access.git"
+    "url": "git+https://github.com/National-Node-Net/ianode-access.git"
   },
   "author": "",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/National-Digital-Twin/ianode-access/issues"
+    "url": "https://github.com/National-Node-Net/ianode-access/issues"
   },
-  "homepage": "https://github.com/National-Digital-Twin/ianode-access#readme",
+  "homepage": "https://github.com/National-Node-Net/ianode-access#readme",
   "dependencies": {
     "@babel/runtime": "^7.24.1",
     "axios": "^1.7.4",
