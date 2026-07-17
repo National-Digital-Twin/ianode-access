@@ -1,6 +1,6 @@
 {
   "name": "@National-Node-Net/ianode-access-api",
-  "version": "0.90.0",
+  "version": "0.90.1",
   "description": "Project to provide user attribute lookups",
   "main": "index.js",
   "scripts": {
