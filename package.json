@@ -30,7 +30,7 @@
   "homepage": "https://github.com/National-Node-Net/ianode-access#readme",
   "dependencies": {
     "@babel/runtime": "^7.24.1",
-    "axios": "^1.7.4",
+    "axios": "^1.18.0",
     "cors": "^2.8.5",
     "elliptic": "6.6.1",
     "express": "^4.21.2",
