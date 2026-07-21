@@ -20,7 +20,25 @@
  #  All support, maintenance and further development of this code is now the responsibility
  #  of the National Digital Twin Programme.
 
-export SCIM_ENABLED=false
+export SCIM_ENABLED=true
 export DEBUG=false
 export GROUPS_KEY="cognito:groups"
-export OPENID_PROVIDER_URL="http://0.0.0.0:9229/local_6GLuhxhD"
+
+# Read the dynamic user pool ID from cognito-local setup
+if [ -f "cognito-local/.user_pool_id" ]; then
+    USER_POOL_ID=$(cat cognito-local/.user_pool_id)
+    export OPENID_PROVIDER_URL="http://0.0.0.0:9229/$USER_POOL_ID"
+    echo "Using dynamic user pool ID: $USER_POOL_ID"
+else
+    echo "Warning: No .user_pool_id file found. Run ./cognito-local/config_cognito.sh first"
+    export OPENID_PROVIDER_URL="http://0.0.0.0:9229/local_PLACEHOLDER"
+fi
+
+if [ -f "cognito-local/.client_id" ]; then
+    CLIENT_ID=$(cat cognito-local/.client_id)
+    export COGNITO_CLIENT_ID="$CLIENT_ID"
+    echo "Using dynamic client ID: $CLIENT_ID"
+else
+    echo "Warning: No .client_id file found. Run ./cognito-local/config_cognito.sh first"
+    export COGNITO_CLIENT_ID="local_PLACEHOLDER_CLIENT"
+fi

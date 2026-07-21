@@ -75,7 +75,7 @@ jobs:
 
   build-tag-push:
     needs: build-ianode
-    uses: National-Digital-Twin/aws-integration-testing/.github/workflows/build-tag-push-docker-image-to-ecr.yml@main
+    uses: National-Node-Net/aws-integration-testing/.github/workflows/build-tag-push-docker-image-to-ecr.yml@main
     with:
         image_tag: ${{needs.build-ianode.outputs.PACKAGE_VERSION}}
         container_repo: 'ianode-access'
@@ -85,21 +85,21 @@ jobs:
 
   docker-compose-up:
     needs: build-tag-push
-    uses: National-Digital-Twin/aws-integration-testing/.github/workflows/docker-compose-up.yml@main
+    uses: National-Node-Net/aws-integration-testing/.github/workflows/docker-compose-up.yml@main
     with:
       docker-compose-file-name: 'docker-compose-github.yaml'
     secrets: inherit
 
   run-smoke-test:
     needs: docker-compose-up
-    uses: National-Digital-Twin/aws-integration-testing/.github/workflows/send-remote-command-to-ec2.yml@main
+    uses: National-Node-Net/aws-integration-testing/.github/workflows/send-remote-command-to-ec2.yml@main
     with:
       run_command: source ~/.bashrc && sh ~/smoke-testing/smoke-test.sh
     secrets: inherit
 
   deploy-to-ghcr:
     needs: [run-smoke-test, build-ianode]
-    uses: National-Digital-Twin/aws-integration-testing/.github/workflows/build-tag-push-docker-image-to-ghcr.yml@main
+    uses: National-Node-Net/aws-integration-testing/.github/workflows/build-tag-push-docker-image-to-ghcr.yml@main
     with:
       image_tag: ${{needs.build-ianode.outputs.PACKAGE_VERSION}}
       path_to_dockerfile: '.'

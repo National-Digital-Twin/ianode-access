@@ -15,7 +15,7 @@ This repository contributes to the development of **secure, scalable, and intero
 
 This repository is one of several open-source components that underpin NDTP’s **Integration Architecture (IA)**—a framework designed to allow organisations to manage and exchange data securely while maintaining control over their own information. The IA is actively deployed and tested across multiple sectors, ensuring its adaptability and alignment with real-world needs.
 
-For a complete overview of the Integration Architecture (IA) project, please see the [Integration Architecture Documentation](https://github.com/National-Digital-Twin/integration-architecture-documentation).
+For a complete overview of the Integration Architecture (IA) project, please see the [Integration Architecture Documentation](https://github.com/National-Node-Net/integration-architecture-documentation).
 
 ## Prerequisites
 Before using this repository, ensure you have the following dependencies installed:
@@ -34,12 +34,16 @@ Before using this repository, ensure you have the following dependencies install
   - Docker
   - Database: MongoDB
 
+## Info
+The detailed information below is retained for completeness; however, to quickly set up a local IANode deployment, please refer directly to the readme.md available at  [Integration Architecture Documentation](https://github.com/National-Node-Net/)
+
+ 
 ## Quick Start
 Follow these steps to get started quickly with this repository. For detailed installation, configuration, and deployment, refer to the relevant MD files.
 
 ### 1. Download
 ```sh  
-git clone https://github.com/National-Digital-Twin/ianode-access.git
+git clone https://github.com/National-Node-Net/ianode-access.git
 cd ianode-access
 ```
 ### 2. Build
@@ -67,6 +71,11 @@ This script initializes the components required for ACCESS.
   - Functions as a pluggable entitlement service within IA Node. 
   - Configurable SCIM-based identity management. 
   - Decouples authentication from authorization for flexible deployment.
+
+## Testing Guide
+
+### Running Unit Tests
+Navigate to the root of the project and run `npm run test` to run the tests for the repository.
 
 ## API Documentation
 Documentation detailing the relevant configuration and endpoints is provided [here](docs/api.md).

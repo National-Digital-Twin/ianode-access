@@ -55,7 +55,7 @@ export const createGroup = async (req, res) => {
     return sendErrorResponse(res, {
       code: 400,
       message: "The group name contains invalid characters.",
-      detail: "https://github.com/National-Digital-Twin/rdf-abac/blob/main/docs/abac-specification.md#syntax-of-words",
+      detail: "https://github.com/National-Node-Net/rdf-abac/blob/main/docs/abac-specification.md#syntax-of-words",
     });
   }
   const payload = {

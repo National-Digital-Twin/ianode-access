@@ -114,3 +114,6 @@ access.sbom.json
 accessfrontend.sbom.json
 
 *.gitignored*
+**/.user_pool_id
+**/.client_id
+
