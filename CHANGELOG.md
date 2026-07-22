@@ -17,6 +17,13 @@ This project follows **Semantic Versioning (SemVer)** ([semver.org](https://semv
 
 ---
 
+## 0.90.2 – 2026-07-22
+
+### Removed
+- Removed obsolete `build-compose-action.yml` and `deploy-to-ghcr-when-main.yml` GitHub Actions workflows.
+
+---
+
 ## 0.90.1 – 2026-07-16
 
 ### Changed
